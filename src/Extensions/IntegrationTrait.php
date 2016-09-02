@@ -98,7 +98,7 @@ trait IntegrationTrait
      * @param  string $url
      * @return string
      */
-    protected function prepareUrl($url)
+    protected function prepareUrl($url) //MOD - Bloonde 001
     {
         if (Str::startsWith($url, '/')) {
             $url = substr($url, 1);
@@ -335,7 +335,7 @@ trait IntegrationTrait
      * @param  string $option
      * @return static
      */
-    public function select($element, $option)
+    public function select($option, $element)
     {
         return $this->storeInput($element, $option);
     }

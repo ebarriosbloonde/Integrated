@@ -66,7 +66,7 @@ trait LaravelTestCase
      */
     protected function makeRequest($requestType, $uri, $parameters = [], $cookies = [], $files = [])
     {
-        $this->response = $this->call($requestType, $uri, $parameters, $cookies, $files);
+        $this->response = $this->call($requestType, $uri, $parameters, $cookies, $files); //MOD - Bloonde 003
 
         $this->clearInputs()->followRedirects()->assertPageLoaded($uri);
 

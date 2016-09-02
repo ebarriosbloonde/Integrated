@@ -100,15 +100,13 @@ trait IntegrationTrait
      */
     protected function prepareUrl($url) //MOD - Bloonde 001
     {
-        if (Str::startsWith($url, '/')) {
-            $url = substr($url, 1);
-        }
+        $result = $url;
 
-        if (! Str::startsWith($url, 'http')) {
-            $url = sprintf("%s/%s", $this->baseUrl(), $url);
+        $pos = strpos($url,'public');
+        if($pos != false){
+            $result = substr($url, $pos + 6, strlen($result) - $pos + 6);
         }
-
-        return trim($url, '/');
+        return $result;
     }
 
     /**
@@ -335,7 +333,7 @@ trait IntegrationTrait
      * @param  string $option
      * @return static
      */
-    public function select($option, $element)
+    public function select($option, $element) // MOD - Bloonde 002
     {
         return $this->storeInput($element, $option);
     }

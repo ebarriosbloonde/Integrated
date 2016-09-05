@@ -92,12 +92,16 @@ trait IntegrationTrait
         return $this;
     }
 
+
+
     /**
      * Prepare the relative URL, given by the user.
      *
      * @param  string $url
      * @return string
      */
+
+
     protected function prepareUrl($url) //MOD - Bloonde 001
     {
         $result = $url;
@@ -173,14 +177,21 @@ trait IntegrationTrait
     public function assertPageIs($uri, $message, $negate = false)
     {
         $this->assertPageLoaded($uri = $this->prepareUrl($uri));
-
         $method = $negate ? 'assertNotEquals' : 'assertEquals';
-
+        $this->dropLocalHost($this->currentPage());
         $this->$method($uri, $this->currentPage(), $message);
 
         return $this;
     }
 
+    /**
+     * This method drops http://localhost from the URL
+     * @param $url
+     * @return string
+     */
+    protected function dropLocalHost($url){ //MOD - Bloonde 002
+        $this->currentPage = substr($url,16,strlen($url));
+    }
     /**
      * Assert that the current page matches a uri.
      *
@@ -189,6 +200,7 @@ trait IntegrationTrait
      */
     public function seePageIs($uri)
     {
+
         return $this->assertPageIs(
             $uri, "Expected to be on the page, {$uri}, but wasn't."
         );
@@ -447,6 +459,7 @@ trait IntegrationTrait
      */
     protected function currentPage()
     {
+
         return rtrim($this->currentPage, '/');
     }
 
